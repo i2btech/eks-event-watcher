@@ -1,16 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cpe
+  name: eew
   labels:
-    {{- include "cpe-chart.labels" . | nindent 4 }}
+    {{- include "eew-chart.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "cpe-chart.selectorLabels" . | nindent 6 }}
+      {{- include "eew-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +19,17 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "cpe-chart.selectorLabels" . | nindent 8 }}
+        {{- include "eew-chart.selectorLabels" . | nindent 8 }}
     spec:
+      serviceAccountName: eew-sa
       containers:
-        - name: cpe
+        - name: eew
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: {{ .Values.image.repository }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           #uncomment below line to override the options, interval: frequency in seconds and supported list options are event,pod,node,namespace,service,pvc
           #args: ["-interval","30","-list","event,pod,node"]
+{{- if .Values.nodeSelector }}
+      nodeSelector: {{- .Values.nodeSelector | toYaml | nindent 8 }}
+{{- end }}

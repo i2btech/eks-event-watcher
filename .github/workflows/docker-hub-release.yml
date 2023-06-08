@@ -1,11 +1,14 @@
-name: Publish Docker image
+name: Release Docker hub
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - develop
+    paths:
+      - "charts/**/Chart.yaml"
 
 jobs:
-  push_to_registry:
+  release:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
