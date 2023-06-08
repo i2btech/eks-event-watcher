@@ -5,7 +5,7 @@ on:
     branches:
       - develop
     paths:
-      - "charts/**/Chart.yaml"
+      - "helm/**/Chart.yaml"
 
 jobs:
   release:
