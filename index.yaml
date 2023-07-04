@@ -3,6 +3,16 @@ entries:
   eew:
   - apiVersion: v2
     appVersion: 1.0.2
+    created: "2023-07-04T16:30:06.869731332Z"
+    description: A Helm chart for Kubernetes
+    digest: f3e041d043ee26e6099212b73eb485a2aedf62265d34e1b796b62498af302753
+    name: eew
+    type: application
+    urls:
+    - https://github.com/i2btech/eks-event-watcher/releases/download/helm-chart-eew-1.0.3/eew-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    appVersion: 1.0.2
     created: "2023-06-08T14:40:00.577512531Z"
     description: A Helm chart for Kubernetes
     digest: b9c8cf13b50197701d209ede486c266379a0ad9399c0b6c102775504c2c777f9
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://github.com/i2btech/eks-event-watcher/releases/download/helm-chart-eew-1.0.2/eew-1.0.2.tgz
     version: 1.0.2
-generated: "2023-06-08T14:40:00.577518031Z"
+generated: "2023-07-04T16:30:06.869738032Z"
