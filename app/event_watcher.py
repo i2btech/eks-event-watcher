@@ -10,10 +10,26 @@ config.load_incluster_config()
 #Get api client
 v1 = client.CoreV1Api()
 
+def get_value(source, key1, key2=None):
+    try:
+        if key2 is None:
+            return source[key1]
+        else:
+            return source[key1][key2]
+    except:
+        return "-"
+
 #Block to get the pod events
 def lookup_all_events():
     for event in watch.Watch().stream(v1.list_event_for_all_namespaces,timeout_seconds=3):
-           print( "%s: Namespace: %s,Object: %s,Name: %s,Reason: %s,Message: %s" % ( event["raw_object"]["kind"],event["raw_object"]["metadata"]["namespace"],event["raw_object"]["involvedObject"]["kind"],event["raw_object"]["involvedObject"]["name"],event["raw_object"]["reason"],event["raw_object"]["message"]))
+           print( "%s: Namespace: %s,Object: %s,Name: %s,Reason: %s,Message: %s" % ( 
+                get_value(event["raw_object"],"kind"),
+                get_value(event["raw_object"],"metadata","namespace"),
+                get_value(event["raw_object"],"involvedObject","kind"),
+                get_value(event["raw_object"],"involvedObject","name"),
+                get_value(event["raw_object"],"reason"),
+                get_value(event["raw_object"],"message")
+            ))
 
 #Block to get the pod events
 def lookup_pod_events():
