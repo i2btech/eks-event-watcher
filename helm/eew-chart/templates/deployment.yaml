@@ -20,6 +20,8 @@ spec:
         {{- include "eew-chart.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: eew-sa
+      tolerations:
+{{ .Values.tolerations | toYaml | indent 8 }}
       containers:
         - name: eew
           image: {{ .Values.image.repository }}
